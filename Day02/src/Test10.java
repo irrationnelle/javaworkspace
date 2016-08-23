@@ -12,6 +12,8 @@ public class Test10 {
 		
 		volume = 4.0/3.0*rad*rad*rad;
 		// 4/3일 경우, 정수값인 1이 나오기 때문에 확실하게 실수 표기해준다.
+		volume = 4.0/3.0*Math.pow(rad, 3);
+		// Math 메소드 이용
 		
 		System.out.println("Sphere volume: "+volume);
 	}
