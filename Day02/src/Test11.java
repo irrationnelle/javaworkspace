@@ -9,8 +9,13 @@ public class Test11 {
 		System.out.print("input Fahrenheit: ");
 		fah = input.nextDouble();
 		
-		cel = 5*(fah-32)/9;
-		
+		cel = (double)5/9*(fah-32);
+		/*
+		 *  5/9를 정수 연산으로 생각해서
+		 *  값으로 0이 나오는 것을
+		 *  방지하기 위해 type casting으로 (double) 
+		 */
+				
 		System.out.println("Fahrenheit "+fah+" to Celsius: "+cel);
 	}
 
