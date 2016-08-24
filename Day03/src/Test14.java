@@ -10,8 +10,8 @@ public class Test14 {
 		System.out.print("input your score: ");
 		int score = input.nextInt();
 		
-		//char level = ()? : ;
-		
+		char level = (score >= 70)? 'A' : ((score < 40)? 'C' : 'B');
+		System.out.println("Your score is "+level);
 	}
 
 }
