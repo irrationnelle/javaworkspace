@@ -1,4 +1,6 @@
-
+/*
+ * 자기보다 낮은 수로 나뉘어지는 수가 아무것도 없을 때 소수.
+ */
 public class Programming06 {
 	public static void main(String[] args) {
 		System.out.println("2");
