@@ -8,24 +8,14 @@ public class Notepad04 {
 		
 		System.out.print("input number: ");
 		int num = input.nextInt();
-		
-		int count = 0;
-		
+
+		System.out.print("Reversed number: ");
 		while(true) {
+			System.out.print(num%10);
 			num /= 10;
-			count++;
 			if(num==0)
 				break;
 		}
-		
-		int total = 0;
-		for(int i=1; i<count; i++) {
-			for(int j=1; j<count; j++) {
-				num /= 10;
-			}
-			
-			for(int j=0; j<i; j++)
-			
-		}
+				
 	}
 }
