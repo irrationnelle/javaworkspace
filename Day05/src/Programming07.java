@@ -6,7 +6,9 @@ public class Programming07 {
 		for(x=1; x<=100; x++) {
 			for(y=1; y<=100; y++) {
 				for(z=1; z<=100; z++) {
-					
+					if(z*z == x*x + y*y) {
+						System.out.println(x+" "+y+" "+z);
+					}
 				}
 			}
 		}
