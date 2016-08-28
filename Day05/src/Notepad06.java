@@ -1,20 +1,19 @@
 import java.util.Scanner;
 
-public class Notepad05 {
+public class Notepad06 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		int num;
-
 		int total = 0;
-		do {
+		for (int i = 0; i < 5; i++) {
 			System.out.print("input number: ");
-			num = input.nextInt();
-			if (num < 0) {
-				System.out.println("You must type positive number");
+			int num = input.nextInt();
+			if (num <= 0) {
+				System.out.println("You must type positive number!");
+				i--;
 				continue;
 			}
 			total += num;
-		} while (num != 0);
+		}
 
 		System.out.println(total);
 	}
