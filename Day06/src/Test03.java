@@ -18,7 +18,7 @@ public class Test03 {
 		int cipher = 1000;
 		for(int i=0; i<4; i++) {
 			System.out.println(cipher+"ÀÇ ÀÚ¸®: "+(num/cipher));
-			num = num - ((num/cipher) * cipher);
+			num %= cipher;
 			cipher /= 10;
 		}
 	}
