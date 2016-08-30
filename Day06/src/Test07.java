@@ -13,12 +13,10 @@ public class Test07 {
 			}
 		} while(num < 0);
 
-		int i=1;
-		while(i <= num) {
+		for(int i=1; i<=num; i++) {
 			if(i%3 == 0) {
 				System.out.print(i+" ");
 			}
-			i++;
 		}
 	}
 }
