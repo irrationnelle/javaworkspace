@@ -9,13 +9,13 @@ class Check{
 		for(int i=0; i<len; i++) {
 			switch(element) {
 			case 1:
-				boolean checkAlphabet = ((text.charAt(i) >= 97 && text.charAt(i) <= 122) || (text.charAt(i) >= 65 && text.charAt(i) <= 90));
+				boolean checkAlphabet = ((text.charAt(i) >= 'a' && text.charAt(i) <= 'z') || (text.charAt(i) >= 'A' && text.charAt(i) <= 'Z'));
 				if(checkAlphabet){
 					count++;
 				}
 				break;
 			case 2:
-				boolean checkNumber = (text.charAt(i) >=48 && text.charAt(i) <=57);
+				boolean checkNumber = (text.charAt(i) >='0' && text.charAt(i) <='9');
 				if(checkNumber){
 					count++;
 				}

@@ -19,7 +19,7 @@ public class Programming01 {
 		//문자열 조건 검사 for문
 		for(int i=0; i<modelNumber.length(); i++) {
 			//알파벳 여부 검사 boolean 값
-			boolean checkAlphabet = ((modelNumber.charAt(i) >= 97 && modelNumber.charAt(i) <= 122) || (modelNumber.charAt(i) >= 65 && modelNumber.charAt(i) <= 90));
+			boolean checkAlphabet = ((modelNumber.charAt(i) >= 'a' && modelNumber.charAt(i) <= 'z') || (modelNumber.charAt(i) >= 'A' && modelNumber.charAt(i) <= 'Z'));
 			if (i<2) {
 				if(!checkAlphabet) {
 					System.out.println("문자열 검증: "+checkAlphabet);
