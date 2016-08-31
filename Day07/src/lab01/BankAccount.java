@@ -7,10 +7,11 @@ public class BankAccount {
 	}
 	
 	void withdraw(int amount) {
-		balance -= amount;
-		if(balance<0) {
-			System.out.println("Fail to withdraw.");
-			balance += amount;
+		if(balance>=amount) {
+			balance -= amount;
+		}
+		else {
+			System.out.println("Fail to withdraw!");
 		}
 	}
 	

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 class Check{
-	int countFinal;
+	int countFinal=0;
 	
 	public void setCount(String text, int element) {
 		int count=0;
