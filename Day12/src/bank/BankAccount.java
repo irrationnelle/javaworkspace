@@ -23,7 +23,6 @@ public class BankAccount {
 	}
 	
 	public void withdraw(int withdrawAmount) {
-		System.out.print("출금 금액: ");
 		if(balance >= withdrawAmount) {
 			this.balance -= withdrawAmount;
 		} else {
