@@ -1,5 +1,7 @@
 package bank;
 
+import java.util.Scanner;
+
 public class BankAccount {
 	private String name;
 	private String password;
@@ -54,4 +56,12 @@ public class BankAccount {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+	
+	/*
+	 * 비밀번호를 확인하는 boolean을 반환하는 메소드를 만들 수 있다.
+	 * 메소드 블럭에서 equals를 사용하고 
+	 * 인자로 입력된 비밀번호 값을 받는 방식
+	 */
 }
