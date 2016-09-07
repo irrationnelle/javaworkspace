@@ -4,6 +4,11 @@ public class Car {
 	protected int speed;
 	protected String color;
 	protected String model;
+	public static int n = 0;
+	
+	public Car() {
+		this(0, "white", "Citroen");
+	}
 	
 	public Car(int speed, String color, String model) {
 		System.out.println("Car 클래스 생성자 호출");
