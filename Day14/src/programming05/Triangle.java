@@ -3,15 +3,14 @@ package programming05;
 public class Triangle extends TwoDimShape {
 	public Triangle() {
 		super();
-		System.out.println(getTriangle());
 	}
 	
 	public Triangle(int width, int height) {
 		super(width, height);
-		System.out.println(getTriangle());
 	}
 	
-	public String getTriangle() {
+	@Override
+	public String toString() {
 		return "»ï°¢Çü";
 	}
 	

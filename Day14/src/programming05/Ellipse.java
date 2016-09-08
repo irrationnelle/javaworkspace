@@ -6,17 +6,16 @@ public class Ellipse extends TwoDimShape {
 	
 	public Ellipse() {
 		super();
-		System.out.println(getEllipse());
 	}
 	
 	public Ellipse(int shortRadius, int longRadius) {
 		super();
 		this.shortRadius = shortRadius;
 		this.longRadius = longRadius;
-		System.out.println(getEllipse());
 	}
 	
-	public String getEllipse() {
+	@Override
+	public String toString() {
 		return "Å¸¿ø";
 	}
 	
