@@ -18,27 +18,14 @@ public class MyFrame extends JFrame {
 		red.setFont(new Font("Consolas", Font.PLAIN, 15));
 		blue.setFont(new Font("Consolas", Font.PLAIN, 15));
 		
+		Listener listener = new Listener();
+		red.addActionListener(listener);
+		blue.addActionListener(listener);
+		
 		panel.add(red);
 		panel.add(blue);
 		
 		panel.setBackground(Color.RED);
-		red.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				panel.setBackground(Color.RED);
-			}
-		});
-		
-		blue.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				panel.setBackground(Color.BLUE);
-			}
-		});
 		
 		setTitle("Red and Blue");
 		setSize(300, 200);
@@ -46,6 +33,20 @@ public class MyFrame extends JFrame {
 		
 		add(panel);
 		setVisible(true);
+	}
+	
+	class Listener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if(e.getSource() == red) {
+				panel.setBackground(Color.RED);
+			} else if(e.getSource() == blue) {
+				panel.setBackground(Color.BLUE);
+			}
+		}
+		
 	}
 			
 }
