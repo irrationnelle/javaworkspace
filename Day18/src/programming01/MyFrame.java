@@ -32,26 +32,9 @@ public class MyFrame extends JFrame {
 		pl2.add(button);
 		pl3.add(text2);
 		
-		text1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setMile(Double.parseDouble(text1.getText()));
-				text2.setText(Double.toString((1.6*getMile())));
-				text1.setText("");
-			}
-		});
-		
-		button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				setMile(Double.parseDouble(text1.getText()));
-				text2.setText(Double.toString((1.6*getMile())));
-				text1.setText("");
-			}
-		});
+		MyListener listener = new MyListener();
+		text1.addActionListener(listener);
+		button.addActionListener(listener);
 		
 		pl3.setLayout(new GridLayout(1, 1));
 		add(pl1, BorderLayout.PAGE_START);
@@ -66,5 +49,16 @@ public class MyFrame extends JFrame {
 
 	public void setMile(double mile) {
 		this.mile = mile;
+	}
+	
+	public class MyListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setMile(Double.parseDouble(text1.getText()));
+			text2.setText(Double.toString(getMile())+" mile¿∫ "+Double.toString((1.6*getMile()))+" km¿Ã¥Ÿ.");
+			text1.setText("");
+		}
+		
 	}
 }
