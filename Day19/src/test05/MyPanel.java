@@ -40,8 +40,8 @@ public class MyPanel extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			// TODO Auto-generated method stub
-			x = e.getX();
-			y = e.getY();
+			x = e.getX()-(size/2);
+			y = e.getY()-(size/2);
 			repaint();
 //			System.out.println("Moved!"+e.getPoint());
 //			System.out.println(e.getX());

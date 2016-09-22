@@ -12,7 +12,6 @@ public class MyPanel extends JPanel {
 	private int size=50;
 	
 	public MyPanel() {
-		// TODO Auto-generated constructor stub
 		addKeyListener(new MyPanelKeyListener()); // 내부 클래스이기 때문에 도트 연산자 불필요
 		
 		requestFocus();
@@ -21,7 +20,6 @@ public class MyPanel extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
 		g.setColor(new Color(100, 150, 250));
