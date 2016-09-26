@@ -18,8 +18,10 @@ public class Test {
 		} catch (ArithmeticException e) {
 			// TODO: handle exception
 			System.out.println("Unable to input 0 at num2");
-		} catch (InputMismatchException e) {
-			System.out.println("Unable to input String at num1 or num2");
+			System.out.println("Error message: "+e.getMessage());
+		} catch (Exception e) {	// 부모 Exception은 자식 Exception의 뒤에 위치해야 한다.
+			System.out.println("Exception error!");
+			System.out.println("Error message: "+e.getMessage());
 		} finally {		// 예외가 발생해서 프로그램이 강제종료 될 경우 자원 반납용으로 사용. 
 			System.out.println("Program End");
 			
