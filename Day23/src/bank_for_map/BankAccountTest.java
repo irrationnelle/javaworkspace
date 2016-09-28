@@ -37,7 +37,6 @@ public class BankAccountTest {
 				break;
 			case 2: // 입금
 				account = checkAccount();
-				bankAccount.get(account);
 				checkPassword = checkPassword();
 				/*
 				 * 굳이 while문으로 accounts[i]가 null인지 검사할 필요 없이
@@ -45,15 +44,16 @@ public class BankAccountTest {
 				 * 생성자에 customerCounts++;를 해주면
 				 * 나중에 for문을 돌릴 때 customerCounts를 이용할 수 있다. 
 				 */
-				while(true) {
-					if(checkPassword.equals(bankAccount.get(account).getPassword())) {
+				try {
+					if (checkPassword.equals(bankAccount.get(account).getPassword())) {
 						System.out.print("입금 금액: ");
 						int depositAmount = scan.nextInt();
 						bankAccount.get(account).deposit(depositAmount);
 						isCorrect = true;
-						break;
 					}
-					i++;
+				} catch (NullPointerException e) {
+					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
+					break;
 				}
 				/*
 				 * customerCounts를 i값이랑 비교해서
@@ -68,42 +68,44 @@ public class BankAccountTest {
 					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
 					break;
 				}
-//			case 3: // 출금
-//				account = checkAccount();
-//				checkPassword = checkPassword();
-//				while(accounts[i] != null) {
-//					if((account == accounts[i].getAccount()) && (checkPassword.equals(accounts[i].getPassword()))) {
-//						System.out.print("출금 금액: ");
-//						int withdrawAmount = scan.nextInt();
-//						accounts[i].withdraw(withdrawAmount);
-//						isCorrect = true;
-//						break;
-//					}
-//					i++;
-//				}
-//				if(isCorrect) {
-//					break;
-//				} else {
-//					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
-//					break;
-//				}
-//			case 4: // 조회
-//				account = checkAccount();
-//				checkPassword = checkPassword();
-//				while(accounts[i] != null) {
-//					if((account == accounts[i].getAccount()) && (checkPassword.equals(accounts[i].getPassword()))) {
-//						accounts[i].checkAccout();
-//						isCorrect = true;
-//						break;
-//					}
-//					i++;
-//				}
-//				if(isCorrect) {
-//					break;
-//				} else {
-//					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
-//					break;
-//				}
+			case 3: // 출금
+				account = checkAccount();
+				checkPassword = checkPassword();
+				try {
+					if(checkPassword.equals(bankAccount.get(account).getPassword())) {
+						System.out.print("출금 금액: ");
+						int withdrawAmount = scan.nextInt();
+						bankAccount.get(account).withdraw(withdrawAmount);
+						isCorrect = true;
+					}
+				} catch (NullPointerException e) {
+					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
+					break;
+				}
+				if(isCorrect) {
+					break;
+				} else {
+					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
+					break;
+				}
+			case 4: // 조회
+				account = checkAccount();
+				checkPassword = checkPassword();
+				try {
+					if(checkPassword.equals(bankAccount.get(account).getPassword())) {
+						bankAccount.get(account).checkAccout();
+						isCorrect = true;
+					}
+				} catch (NullPointerException e) {
+					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
+					break;
+				}
+				if(isCorrect) {
+					break;
+				} else {
+					System.out.println("잘못된 계좌번호 혹은 비밀번호입니다.");
+					break;
+				}
 			case -1: // 프로그램 종료
 				isContinue = false;
 				System.out.println("프로그램을 종료합니다.");
@@ -127,4 +129,5 @@ public class BankAccountTest {
 		String password = scan.next();
 		return password;
 	}
+	
 }
