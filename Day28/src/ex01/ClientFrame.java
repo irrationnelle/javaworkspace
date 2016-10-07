@@ -47,7 +47,7 @@ public class ClientFrame extends JFrame {
 		btnSend = new JButton("Send");
 		btnChangeNickname = new JButton("Chg.Nick");
 		
-		textArea.setFont(new Font("Consolas", Font.PLAIN, 18));
+		textArea.setFont(new Font("¸¼Àº°íµñ", Font.PLAIN, 18));
 		
 		areaPanel.setLayout(new BorderLayout());
 		areaPanel.add(new JScrollPane(textArea));
@@ -57,7 +57,7 @@ public class ClientFrame extends JFrame {
 		btnPanel.add(btnSend, BorderLayout.EAST); 
 		
 		textField.setBackground(Color.LIGHT_GRAY);
-		textField.setFont(new Font("Consolas", Font.PLAIN, 18));
+		textField.setFont(new Font("¸¼Àº°íµñ", Font.PLAIN, 18));
 		
 		inputPanel.setLayout(new BorderLayout());
 		inputPanel.add(textField);
@@ -66,27 +66,31 @@ public class ClientFrame extends JFrame {
 		add(areaPanel, BorderLayout.CENTER);
 		add(inputPanel, BorderLayout.SOUTH);
 		
-//		new JOptionPane().showInputDialog(parentComponent, message)
+		String nickname = JOptionPane.showInputDialog(this, "Input your Nickname: ", JOptionPane.INFORMATION_MESSAGE);
+		MyListener listener = new MyListener();
 		
+		textField.addActionListener(listener);
+		btnSend.addActionListener(listener);
+		btnChangeNickname.addActionListener(listener);
+		
+		setTitle("Exercise for multichatting");
+		setSize(500, 600);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+
 		//Network ±¸Çö
 		try {
 			socket = new Socket(InetAddress.getByName("127.0.0.1"), 5555);
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			
-			while(true) {
-				String receiveMsg;
-				receiveMsg = br.readLine();
-				textArea.setText(receiveMsg);
-			}
+			bw.write(nickname+ "\n");
+			bw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		setTitle("Exercise for multichatting");
-		setSize(500, 600);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
+		new ListenThread().start();
 	}
 	
 	class MyListener implements ActionListener {
@@ -94,11 +98,16 @@ public class ClientFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
-				String sendMsg = textField.getText();
-				textArea.setText(sendMsg+"\n");
-				textField.setText("");
-				bw.write(sendMsg + "\n");
-				bw.flush();
+				if(e.getSource() == btnChangeNickname) {
+					String newNick = JOptionPane.showInputDialog(null, "Input your Nickname: ");
+					bw.write("*!chgxwyzma!*"+newNick+"\n");
+					bw.flush();
+				} else {
+					String sendMsg = textField.getText();
+					textField.setText("");
+					bw.write(sendMsg + "\n");
+					bw.flush();
+				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -106,8 +115,22 @@ public class ClientFrame extends JFrame {
 		
 	}
 	
+	class ListenThread extends Thread {
+		@Override
+		public void run() {
+			try {
+				while(true) {
+					String receiveMsg = br.readLine();
+					textArea.append(receiveMsg+"\n");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
-		ClientFrame clientframe = new ClientFrame();
+		new ClientFrame();
 	}
 
 }
