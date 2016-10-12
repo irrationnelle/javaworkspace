@@ -10,7 +10,7 @@ import java.util.List;
 
 // 프로그램 진행 중에 데이터베이스 작업이 필요한 시점에 아래의 BookDAO 클래스 객체를 활용하도록 설계
 public class BookDAO {
-	private final String DB_URL = "jdbc:mysql://70.12.109.107:3306/java";
+	private final String DB_URL = "jdbc:mysql://127.0.0.1:3306/java";
 	private final String DB_ID = "root";
 	private final String DB_PW = "sds902";
 	
