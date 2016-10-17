@@ -29,20 +29,30 @@ public class Board extends JPanel implements ActionListener {
 	JLabel statusbar;
 	Shape curPiece;
 	Tetrominoes[] board;
+	
+	ScoreDAO dao;
+	ScoreVO score;
+	
+	int gameSpeed;
 
 	public Board(Tetris parent) {
+		gameSpeed = 400;
 
+		String name = "";
 		setFocusable(true);
 		curPiece = new Shape();
-		timer = new Timer(400, this);
+		timer = new Timer(gameSpeed, this);
 		timer.start();
 
 		statusbar = parent.getStatusBar();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
 		clearBoard();
+		
+		dao = new ScoreDAO();
 	}
 
+	
 	public void actionPerformed(ActionEvent e) {
 		if (isFallingFinished) {
 			isFallingFinished = false;
@@ -75,6 +85,8 @@ public class Board extends JPanel implements ActionListener {
 
 		newPiece();
 		timer.start();
+		
+		dao.createConnection();
 	}
 
 	private void pause() {
@@ -159,6 +171,9 @@ public class Board extends JPanel implements ActionListener {
 			timer.stop();
 			isStarted = false;
 			statusbar.setText("game over");
+			
+			score = new ScoreVO(numLinesRemoved);
+			dao.insertScore(score);
 		}
 	}
 
@@ -257,7 +272,9 @@ public class Board extends JPanel implements ActionListener {
 				tryMove(curPiece.rotateRight(), curX, curY);
 				break;
 			case KeyEvent.VK_UP:
-				tryMove(curPiece.rotateLeft(), curX, curY);
+//				tryMove(curPiece.rotateLeft(), curX, curY);
+				gameSpeed -= 50;
+				
 				break;
 			case KeyEvent.VK_SPACE:
 				dropDown();

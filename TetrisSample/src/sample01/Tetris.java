@@ -19,7 +19,7 @@ public class Tetris extends JFrame {
         add(board);
         board.start();
 
-        setSize(400, 800);
+        setSize(300, 500);
         setTitle("Tetris");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
    }
@@ -33,6 +33,5 @@ public class Tetris extends JFrame {
         Tetris game = new Tetris();
         game.setLocationRelativeTo(null);
         game.setVisible(true);
-
     } 
 }
