@@ -10,9 +10,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
-
-import sample01.Tetrominoes;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -27,24 +26,28 @@ public class Board extends JPanel implements ActionListener {
 	int curX = 0;
 	int curY = 0;
 	JLabel statusbar;
+	JTextField scoreBoard;
 	Shape curPiece;
 	Tetrominoes[] board;
 	
 	ScoreDAO dao;
 	ScoreVO score;
+	String userName;
 	
 	int gameSpeed;
 
-	public Board(Tetris parent) {
+	public Board(MainFrame2 mf) {
 		gameSpeed = 400;
+//		scoreBoard = new JTextField();
 
 		String name = "";
 		setFocusable(true);
 		curPiece = new Shape();
 		timer = new Timer(gameSpeed, this);
-		timer.start();
+//		timer.start();
 
-		statusbar = parent.getStatusBar();
+		scoreBoard = mf.getScoreBoard();
+		userName = mf.getUserName();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
 		clearBoard();
@@ -96,10 +99,11 @@ public class Board extends JPanel implements ActionListener {
 		isPaused = !isPaused;
 		if (isPaused) {
 			timer.stop();
-			statusbar.setText("paused");
+			System.out.println(scoreBoard);
+			scoreBoard.setText("paused");
 		} else {
 			timer.start();
-			statusbar.setText(String.valueOf(numLinesRemoved));
+			scoreBoard.setText(String.valueOf(numLinesRemoved));
 		}
 		repaint();
 	}
@@ -170,9 +174,9 @@ public class Board extends JPanel implements ActionListener {
 			curPiece.setShape(Tetrominoes.NoShape);
 			timer.stop();
 			isStarted = false;
-			statusbar.setText("game over");
-			
-			score = new ScoreVO(numLinesRemoved);
+			scoreBoard.setText("game over");
+			System.out.println(userName);
+			score = new ScoreVO(userName, numLinesRemoved);
 			dao.insertScore(score);
 		}
 	}
@@ -218,7 +222,7 @@ public class Board extends JPanel implements ActionListener {
 
 		if (numFullLines > 0) {
 			numLinesRemoved += numFullLines;
-			statusbar.setText(String.valueOf(numLinesRemoved));
+			scoreBoard.setText(String.valueOf(numLinesRemoved));
 			isFallingFinished = true;
 			curPiece.setShape(Tetrominoes.NoShape);
 			repaint();

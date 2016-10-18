@@ -14,8 +14,9 @@ public class ScoreVO {
 		this.score = score;
 	}
 	
-	public ScoreVO(int score) {
+	public ScoreVO(String name, int score) {
 		super();
+		this.name = name;
 		this.score = score;
 	}
 

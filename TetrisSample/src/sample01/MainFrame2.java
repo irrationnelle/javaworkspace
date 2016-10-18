@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -20,24 +21,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class MainFrame extends JFrame{
+public class MainFrame2 extends JFrame{
 
 	protected JTextField idText;
 	protected JTextField field3;
     protected JButton idButton;
 	BufferedImage img = null;
+	JTextField field4;
+	Board board;
+	String userName = "rase";
 
 	// 프레임 생성 및 초기화
-	public MainFrame() {
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Dimension screenSize = tk.getScreenSize();
-		int x = screenSize.width / 6 / 1 - this.getWidth() / 2;
-		int y = screenSize.height / 300 / 1 - this.getHeight() / 2;
-		setLocation(x, y);
-		setTitle("Tetris");
-		setSize(800, 950);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+	public MainFrame2() {
+//		Toolkit tk = Toolkit.getDefaultToolkit();
+//		Dimension screenSize = tk.getScreenSize();
+//		int x = screenSize.width / 6 / 1 - this.getWidth() / 2;
+//		int y = screenSize.height / 300 / 1 - this.getHeight() / 2;
+//		setLocation(x, y);
+		
 
 //		try {
 //			img = ImageIO.read(new File("/Tetris/img"));
@@ -50,19 +51,20 @@ public class MainFrame extends JFrame{
 
 		// 프레임 위에 붙일 페널 생성
 		MyPenal p = new MyPenal();
-		JPanel penalMain = new JPanel();
-		JPanel penalBar = new JPanel();
-		JPanel penalUnclear = new JPanel();
-		JPanel penalGame = new JPanel();
-		JPanel penalNext = new JPanel();
-		JPanel penalItem = new JPanel();
-		Board board = new Board();
+		JPanel panelMain = new JPanel();
+		JPanel panelBar = new JPanel();
+		JPanel panelUnclear = new JPanel();
+//		JPanel panelGame = new JPanel();
+		
+		JPanel panelNext = new JPanel();
+		JPanel panelItem = new JPanel();
 
 		// Bar패널 설정
-		penalBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-		penalBar.setBackground(Color.darkGray);
-		penalBar.setSize(800, 40);
-		penalMain.add(penalBar);
+		panelBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panelBar.setBackground(Color.darkGray);
+		panelBar.setSize(800, 40);
+		panelMain.add(panelBar);
+		panelBar.setFocusable(false);
 
 		JButton startBtn = new JButton("Start");
 		startBtn.setBackground(Color.WHITE);
@@ -71,102 +73,145 @@ public class MainFrame extends JFrame{
 				new UserInput();
 			}
 		});
-		penalBar.add(startBtn);
+		startBtn.setFocusable(false);
+		
+		panelBar.add(startBtn);
 		JButton optionBtn = new JButton("Option");
 		optionBtn.setBackground(Color.WHITE);
-		penalBar.add(optionBtn);
+		panelBar.add(optionBtn);
+		optionBtn.setFocusable(false);
 
 		// Unclear패널 설정
-		penalUnclear.setLayout(null);
-		penalUnclear.setBounds(30, 70, 500, 100);
-		penalUnclear.setSize(720, 800);
-		penalUnclear.setBackground(new Color(0, 0, 0, 50));
+		panelUnclear.setLayout(null);
+		panelUnclear.setBounds(30, 70, 500, 100);
+		panelUnclear.setSize(720, 800);
+		panelUnclear.setBackground(new Color(0, 0, 0, 50));
+		panelUnclear.setFocusable(false);
 		// -------------------Unclear페널에 붙을 각종 레이블--------------------------//
 		// NEXT 레이블
 		JLabel lable1 = new JLabel("NEXT");
 		lable1.setBounds(40, 25, 50, 10);
 		lable1.setForeground(Color.white);
-		penalUnclear.add(lable1);
+		lable1.setFocusable(false);
+		panelUnclear.add(lable1);
 		// Player 레이블
 		JLabel lable2 = new JLabel("PLAYER");
 		lable2.setBounds(30, 200, 50, 10);
 		lable2.setForeground(Color.white);
-		penalUnclear.add(lable2);
+		lable2.setFocusable(false);
+		panelUnclear.add(lable2);
 		// Mode 레이블
 		JLabel lable3 = new JLabel("MODE");
 		lable3.setBounds(35, 300, 50, 10);
 		lable3.setForeground(Color.white);
-		penalUnclear.add(lable3);
+		lable3.setFocusable(false);
+		panelUnclear.add(lable3);
 		// Speed 레이블
 		JLabel lable4 = new JLabel("SPEED");
 		lable4.setBounds(30, 400, 50, 10);
 		lable4.setForeground(Color.white);
-		penalUnclear.add(lable4);
+		lable4.setFocusable(false);
+		panelUnclear.add(lable4);
 		// Score 레이블
 		JLabel lable5 = new JLabel("SCORE");
 		lable5.setBounds(640, 50, 50, 10);
 		lable5.setForeground(Color.white);
-		penalUnclear.add(lable5);
+		lable5.setFocusable(false);
+		panelUnclear.add(lable5);
 
 		// Level 레이블
 		JLabel lable7 = new JLabel("LEVEL");
 		lable7.setBounds(105, 750, 100, 10);
 		lable7.setForeground(Color.white);
-		penalUnclear.add(lable7);
+		lable7.setFocusable(false);
+		panelUnclear.add(lable7);
 
 		// ------------------Unclear패널에 붙을 각종 텍스트-----------------------------//
 		// Speed 텍스트
 		JTextField Field1 = new JTextField();
 		Field1.setBounds(17, 330, 70, 40);
 		Field1.setBackground(Color.white);
-		penalUnclear.add(Field1);
+		panelUnclear.add(Field1);
+		Field1.setFocusable(false);
 		// Mode 텍스트
 		JTextField Field2 = new JTextField();
 		Field2.setBounds(17, 430, 70, 40);
 		Field2.setBackground(Color.white);
-		penalUnclear.add(Field2);
+		panelUnclear.add(Field2);
+		Field2.setFocusable(false);
 		// Player 텍스트
 		field3 = new JTextField();
 		field3.setBounds(17, 230, 70, 40);
 		field3.setBackground(Color.white);
-		penalUnclear.add(field3);
+		panelUnclear.add(field3);
+		field3.setFocusable(false);
 
 		// Score 텍스트
-		JTextField Field4 = new JTextField();
-		Field4.setBounds(625, 80, 70, 40);
-		Field4.setBackground(Color.white);
-		penalUnclear.add(Field4);
+		field4 = new JTextField("0");
+		field4.setBounds(625, 80, 70, 40);
+		field4.setBackground(Color.white);
+		panelUnclear.add(field4);
+		field4.setFocusable(false);
 		// Level 텍스트
 		JTextField Field5 = new JTextField();
 		Field5.setBounds(160, 750, 450, 10);
 		Field5.setBackground(Color.white);
-		penalUnclear.add(Field5);
+		panelUnclear.add(Field5);
+		Field5.setFocusable(false);
 
 		// --------------------------------------------------------------------------//
 
 		// Game패널 설정
+		board = new Board(this);
 		board.setLayout(null);
 		board.setBounds(135, 90, 400, 50);
 		board.setSize(500, 700);
 		board.setBackground(Color.gray);
-		penalMain.add(board);
+		board.setFocusable(true);
+		board.requestFocus();
+		board.requestFocusInWindow();
+		board.setRequestFocusEnabled(true);
+		board.grabFocus();
+		panelMain.add(board);
+		panelMain.setFocusable(false);
 		// NEXT패널 설정
-		penalNext.setLayout(null);
-		penalNext.setBounds(50, 125, 100, 100);
-		penalNext.setSize(70, 100);
-		penalNext.setBackground(Color.white);
-		penalGame.add(board);
-
+		panelNext.setLayout(null);
+		panelNext.setBounds(50, 125, 100, 100);
+		panelNext.setSize(70, 100);
+		panelNext.setBackground(Color.white);
+		board.add(panelNext);
+		panelNext.setFocusable(false);
 		// 각 패널들을 전체 Main패널에 붙이기
 
-		add(penalBar);
+		
+		add(panelBar);
 		add(board);
-		add(penalNext);
-		add(penalUnclear);
-		add(penalMain);
+		add(panelNext);
+		add(panelUnclear);
+		add(panelMain);
 		add(p);
 		setVisible(true);
 
+		panelBar.setFocusable(false);
+		panelNext.setFocusable(false);
+		panelUnclear.setFocusable(false);
+		p.setFocusable(false);
+		board.setFocusable(true);
+//		board.start();
+		
+		setTitle("Tetris");
+		setSize(800, 950);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		setFocusable(true);
+	}
+	
+	public JTextField getScoreBoard() {
+		return field4;
+	}
+	
+	public String getUserName() {
+		return userName;
 	}
 
 	class MyPenal extends JPanel {
@@ -205,28 +250,28 @@ public class MainFrame extends JFrame{
 
 			setResizable(false);
 
-			try {
-				img = ImageIO.read(new File("11.jpg"));
-
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				System.exit(0);
-			}
+//			try {
+//				img = ImageIO.read(new File("11.jpg"));
+//
+//			} catch (Exception e) {
+//				System.out.println(e.getMessage());
+//				System.exit(0);
+//			}
 			add(new MyPenal());
 
 			MyPenal p = new MyPenal();
-			JPanel penalMain = new JPanel();
-			JPanel penalUnclear = new JPanel();
+			JPanel panelMain = new JPanel();
+			JPanel panelUnclear = new JPanel();
 
-			penalUnclear.setLayout(null);
-			penalUnclear.setBounds(30, 40, 30, 100);
-			penalUnclear.setSize(240, 40);
-			penalUnclear.setBackground(new Color(0, 0, 0, 0));
+			panelUnclear.setLayout(null);
+			panelUnclear.setBounds(30, 40, 30, 100);
+			panelUnclear.setSize(240, 40);
+			panelUnclear.setBackground(new Color(0, 0, 0, 0));
 
 			JLabel idLabel = new JLabel("ID");
 			idLabel.setBounds(10, 10, 50, 20);
 			idLabel.setFont(new Font("바탕", Font.BOLD, 20));
-			penalUnclear.add(idLabel);
+			panelUnclear.add(idLabel);
 
 			idText = new JTextField();
 			idText.setBounds(40, 10, 130, 20);
@@ -238,25 +283,26 @@ public class MainFrame extends JFrame{
 					
 				}
 			});
-			penalUnclear.add(idText);
+			panelUnclear.add(idText);
 
 			JButton idButton = new JButton("입력");
 			idButton.setBounds(180, 10, 60, 20);
-			penalUnclear.add(idButton);
+			panelUnclear.add(idButton);
 			idButton.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				    String text = idText.getText(); 
-				    field3.setText(text);
-				    dispose();
-				    
-                   
+					userName = idText.getText();
+					field3.setText(userName);
+					dispose();
+					field4.setText("0");
+					board.start();
+
 				}
 			});
 
-			add(penalUnclear);
-			add(penalMain);
+			add(panelUnclear);
+			add(panelMain);
 			add(p);
 			setVisible(true);
 
@@ -281,7 +327,9 @@ public class MainFrame extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		MainFrame main = new MainFrame();
+		MainFrame2 main = new MainFrame2();
+		main.setLocationRelativeTo(null);
+        main.setVisible(true);
 
 	}
 
