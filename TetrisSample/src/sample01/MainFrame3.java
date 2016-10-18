@@ -21,23 +21,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class MainFrame2 extends JFrame{
+public class MainFrame3 extends JFrame{
 
 	protected JTextField idText;
 	protected JTextField field3;
     protected JButton idButton;
 	BufferedImage img = null;
-	JTextField field4;
+	JTextField fieldScore;
 	Board board;
 	String userName = "rase";
 
 	// 프레임 생성 및 초기화
-	public MainFrame2() {
-//		Toolkit tk = Toolkit.getDefaultToolkit();
-//		Dimension screenSize = tk.getScreenSize();
-//		int x = screenSize.width / 6 / 1 - this.getWidth() / 2;
-//		int y = screenSize.height / 300 / 1 - this.getHeight() / 2;
-//		setLocation(x, y);
+	public MainFrame3() {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tk.getScreenSize();
+		int x = screenSize.width / 6 / 1 - this.getWidth() / 2;
+		int y = screenSize.height / 300 / 1 - this.getHeight() / 2;
+		setLocation(x, y);
 		
 
 //		try {
@@ -47,10 +47,10 @@ public class MainFrame2 extends JFrame{
 //			System.out.println(e.getMessage());
 //			System.exit(0);
 //		}
-		add(new MyPenal());
+		add(new MyPanel());
 
 		// 프레임 위에 붙일 페널 생성
-		MyPenal p = new MyPenal();
+		MyPanel p = new MyPanel();
 		JPanel panelMain = new JPanel();
 		JPanel panelBar = new JPanel();
 		JPanel panelUnclear = new JPanel();
@@ -59,7 +59,7 @@ public class MainFrame2 extends JFrame{
 		JPanel panelNext = new JPanel();
 		JPanel panelItem = new JPanel();
 
-		// Bar패널 설정
+//		// Bar패널 설정
 		panelBar.setLayout(new FlowLayout(FlowLayout.LEFT));
 		panelBar.setBackground(Color.darkGray);
 		panelBar.setSize(800, 40);
@@ -147,11 +147,11 @@ public class MainFrame2 extends JFrame{
 		field3.setFocusable(false);
 
 		// Score 텍스트
-		field4 = new JTextField("0");
-		field4.setBounds(625, 80, 70, 40);
-		field4.setBackground(Color.white);
-		panelUnclear.add(field4);
-		field4.setFocusable(false);
+		fieldScore = new JTextField("0");
+		fieldScore.setBounds(625, 80, 70, 40);
+		fieldScore.setBackground(Color.white);
+		panelUnclear.add(fieldScore);
+		fieldScore.setFocusable(false);
 		// Level 텍스트
 		JTextField Field5 = new JTextField();
 		Field5.setBounds(160, 750, 450, 10);
@@ -160,7 +160,8 @@ public class MainFrame2 extends JFrame{
 		Field5.setFocusable(false);
 
 		// --------------------------------------------------------------------------//
-
+//		new UserInput();
+		
 		// Game패널 설정
 		board = new Board(this);
 		board.setLayout(null);
@@ -168,10 +169,10 @@ public class MainFrame2 extends JFrame{
 		board.setSize(500, 700);
 		board.setBackground(Color.gray);
 		board.setFocusable(true);
-		board.requestFocus();
-		board.requestFocusInWindow();
-		board.setRequestFocusEnabled(true);
-		board.grabFocus();
+//		board.requestFocus();
+//		board.requestFocusInWindow();
+//		board.setRequestFocusEnabled(true);
+//		board.grabFocus();
 		panelMain.add(board);
 		panelMain.setFocusable(false);
 		// NEXT패널 설정
@@ -192,12 +193,15 @@ public class MainFrame2 extends JFrame{
 		add(p);
 		setVisible(true);
 
+
 		panelBar.setFocusable(false);
 		panelNext.setFocusable(false);
 		panelUnclear.setFocusable(false);
 		p.setFocusable(false);
+//		board.start();
 		board.setFocusable(true);
-		board.start();
+		
+		new UserInput();
 		
 		setTitle("Tetris");
 		setSize(800, 950);
@@ -207,14 +211,22 @@ public class MainFrame2 extends JFrame{
 	}
 	
 	public JTextField getScoreBoard() {
-		return field4;
+		return fieldScore;
 	}
 	
 	public String getUserName() {
 		return userName;
 	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public JTextField getUserField() {
+		return field3;
+	}
 
-	class MyPenal extends JPanel {
+	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
 			g.drawImage(img, 0, 0, 800, 1100, null, null);
 		}
@@ -244,34 +256,25 @@ public class MainFrame2 extends JFrame{
 			Dimension screenSize = tk.getScreenSize();
 			int x = screenSize.width / 3 / 1 - this.getWidth() / 2;
 			int y = screenSize.height / 3 / 1 - this.getHeight() / 2;
-			setLocation(x, y);
-			setTitle("Tetris");
-			setSize(300, 150);
 
-			setResizable(false);
+//			add(new MyPanel());
 
-//			try {
-//				img = ImageIO.read(new File("11.jpg"));
-//
-//			} catch (Exception e) {
-//				System.out.println(e.getMessage());
-//				System.exit(0);
-//			}
-			add(new MyPenal());
+			MyPanel p = new MyPanel();
+			JPanel panelMain1 = new JPanel();
+			JPanel panelUnclear1 = new JPanel();
 
-			MyPenal p = new MyPenal();
-			JPanel panelMain = new JPanel();
-			JPanel panelUnclear = new JPanel();
-
-			panelUnclear.setLayout(null);
-			panelUnclear.setBounds(30, 40, 30, 100);
-			panelUnclear.setSize(240, 40);
-			panelUnclear.setBackground(new Color(0, 0, 0, 0));
+			panelUnclear1.setLayout(null);
+			panelUnclear1.setBounds(30, 40, 30, 100);
+			panelUnclear1.setSize(240, 40);
+			panelUnclear1.setBackground(new Color(0, 0, 0, 0));
+			panelUnclear1.setFocusable(false);
 
 			JLabel idLabel = new JLabel("ID");
 			idLabel.setBounds(10, 10, 50, 20);
 			idLabel.setFont(new Font("바탕", Font.BOLD, 20));
-			panelUnclear.add(idLabel);
+			idLabel.setFocusable(false);
+			panelUnclear1.add(idLabel);
+			panelUnclear1.setFocusable(false);
 
 			idText = new JTextField();
 			idText.setBounds(40, 10, 130, 20);
@@ -279,36 +282,54 @@ public class MainFrame2 extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+//					userName = idText.getText();
+					setUserName(idText.getText());
+					field3.setText(userName);
+					field3.setFocusable(false);
+					dispose();
+					fieldScore.setText("0");
+					fieldScore.setFocusable(false);
+					board.start();
+					board.setFocusable(true);
 					
 				}
 			});
-			panelUnclear.add(idText);
-
+			panelUnclear1.add(idText);
+			panelUnclear1.setFocusable(false);
 			JButton idButton = new JButton("입력");
+			idButton.setFocusable(false);
 			idButton.setBounds(180, 10, 60, 20);
-			panelUnclear.add(idButton);
 			idButton.addActionListener(new ActionListener() {
-
+				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					userName = idText.getText();
 					field3.setText(userName);
+					field3.setFocusable(false);
 					dispose();
-//					field4.setText("0");
-//					board.start();
-
+					fieldScore.setText("0");
+					fieldScore.setFocusable(false);
+					board.start();
+					board.setFocusable(true);
 				}
 			});
+			panelUnclear1.add(idButton);
+			panelUnclear1.setFocusable(false);
 
-			add(panelUnclear);
-			add(panelMain);
+			add(panelUnclear1); 
+//			add(panelMain);
 			add(p);
+			
+			setTitle("Tetris");
+			setLocation(x, y);
+			setSize(300, 150);
+			
+			setResizable(false);
 			setVisible(true);
 
 		}
 
-		class MyPenal extends JPanel {
+		class MyPanel extends JPanel {
 			public void paint(Graphics g) {
 				g.drawImage(img, 0, 0, 300, 200, null, null);
 			}
@@ -327,7 +348,7 @@ public class MainFrame2 extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		MainFrame2 main = new MainFrame2();
+		MainFrame3 main = new MainFrame3();
 		main.setLocationRelativeTo(null);
         main.setVisible(true);
 

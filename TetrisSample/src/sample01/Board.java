@@ -27,6 +27,7 @@ public class Board extends JPanel implements ActionListener {
 	int curY = 0;
 	JLabel statusbar;
 	JTextField scoreBoard;
+	JTextField userBoard;
 	Shape curPiece;
 	Tetrominoes[] board;
 	
@@ -36,7 +37,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	int gameSpeed;
 
-	public Board(MainFrame2 mf) {
+	public Board(MainFrame3 mf) {
 		gameSpeed = 400;
 //		scoreBoard = new JTextField();
 
@@ -48,11 +49,13 @@ public class Board extends JPanel implements ActionListener {
 
 		scoreBoard = mf.getScoreBoard();
 		userName = mf.getUserName();
+		userBoard = mf.getUserField();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
 		clearBoard();
 		
 		dao = new ScoreDAO();
+		System.out.println("Board Construct");
 	}
 
 	
@@ -90,6 +93,7 @@ public class Board extends JPanel implements ActionListener {
 		timer.start();
 		
 		dao.createConnection();
+		System.out.println("Board start");
 	}
 
 	private void pause() {
@@ -175,6 +179,7 @@ public class Board extends JPanel implements ActionListener {
 			timer.stop();
 			isStarted = false;
 			scoreBoard.setText("game over");
+			userName = userBoard.getText();
 			System.out.println(userName);
 			score = new ScoreVO(userName, numLinesRemoved);
 			dao.insertScore(score);
@@ -276,9 +281,7 @@ public class Board extends JPanel implements ActionListener {
 				tryMove(curPiece.rotateRight(), curX, curY);
 				break;
 			case KeyEvent.VK_UP:
-//				tryMove(curPiece.rotateLeft(), curX, curY);
-				gameSpeed -= 50;
-				
+				tryMove(curPiece.rotateLeft(), curX, curY);
 				break;
 			case KeyEvent.VK_SPACE:
 				dropDown();
