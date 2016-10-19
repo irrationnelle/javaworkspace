@@ -1,5 +1,6 @@
-package sample01;
+package sample02;
 
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,14 +13,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class MainFrame3 extends JFrame{
 
@@ -30,6 +36,7 @@ public class MainFrame3 extends JFrame{
 	JTextField fieldScore;
 	Board board;
 	String userName;
+	ScorePanel scorePanel;
 
 	// 프레임 생성 및 초기화
 	public MainFrame3() {
@@ -78,6 +85,16 @@ public class MainFrame3 extends JFrame{
 		panelBar.add(startBtn);
 		JButton optionBtn = new JButton("Option");
 		optionBtn.setBackground(Color.WHITE);
+		optionBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				scorePanel = new ScorePanel();
+//				add(scorePanel);
+//				scorePanel.setVisible(true);
+				new ScoreFrame();
+			}
+		});
 		panelBar.add(optionBtn);
 		optionBtn.setFocusable(false);
 
@@ -198,7 +215,7 @@ public class MainFrame3 extends JFrame{
 		panelNext.setFocusable(false);
 		panelUnclear.setFocusable(false);
 		p.setFocusable(false);
-//		board.start();
+		board.start();
 		board.setFocusable(true);
 		
 		new UserInput();
@@ -346,6 +363,85 @@ public class MainFrame3 extends JFrame{
 		}
 
 	}
+	
+	public class ScoreFrame extends JFrame {
+		
+		ScorePanel scorePanel;
+		
+		public ScoreFrame() {
+			scorePanel = new ScorePanel();
+			
+			Toolkit tk = Toolkit.getDefaultToolkit();
+			Dimension screenSize = tk.getScreenSize();
+			int x = screenSize.width / 3 / 1 - this.getWidth() / 2;
+			int y = screenSize.height / 3 / 1 - this.getHeight() / 2;
+			
+			add(scorePanel);
+			
+			setTitle("Score Board");
+			setLocation(x, y);
+			setSize(500, 480);
+			
+//			setResizable(false);
+			setVisible(true);
+		}
+		
+		public class ScorePanel extends JPanel {
+			String[] Column = { "순위", "사용자", "점수" };
+			Object[][] data;
+			ScoreDAO d = new ScoreDAO(); // 점수 DB DAO
+			
+			public ScorePanel() {
+				Toolkit tk = Toolkit.getDefaultToolkit();
+				Dimension screenSize = tk.getScreenSize();
+				int x = screenSize.width / 3 / 1 - this.getWidth() / 2;
+				int y = screenSize.height / 3 / 1 - this.getHeight() / 2;
+				
+				
+				d.createConnection();
+				List<ScoreVO> l = d.selectScoreList();
+				data = new Object[l.size()][];
+				
+				for (int i = 0; i < d.selectScoreList().size(); i++) {
+					data[i] = new Object[3];
+					data[i][0] = new Integer(i+1);
+					data[i][1] = new String(l.get(i).getName());
+					data[i][2] = new Integer(l.get(i).getScore());
+				} // 테이블에 들어갈 데이터 입력
+				
+				
+				DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+				dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+				// 가운데 정렬용 DefaultTableCellRenderer
+				
+				JTable b = new JTable(data, Column);
+				
+				for(int i = 0 ; i < b.getColumnCount() ; i++)
+					b.getColumnModel().getColumn(i).setCellRenderer(dtcr);
+				// 각 column들을 가운데 정렬함
+				
+				b.setEnabled(false);
+				// 테이블 수정금지
+				b.getTableHeader().setReorderingAllowed(false);
+				// 테이블 이동 불가
+				b.getTableHeader().setResizingAllowed(false);
+				// 테이블 크기 조절 불가.
+				JScrollPane p = new JScrollPane(b); 
+				add(p); // JScrollPane으로 테이블에 스크롤을 넣은후에 패널에 추가
+				
+				System.out.println("scorePanel Construct");
+				
+				setTitle("Score Board");
+				setLocation(x, y);
+				setSize(300, 150);
+				
+				setResizable(false);
+				setVisible(true);
+			}
+			
+		}
+	}
+	
 
 	public static void main(String[] args) {
 		MainFrame3 main = new MainFrame3();
